@@ -100,7 +100,7 @@ function Node:load()
 	file:close()
 end
 
-function open_namespace(name)
+function namespace_open(name)
 	assert(type(name) == 'string')
 	local namespace_index = fs.combine(HOME_DIR, name)
 	if fs.exists(namespace_index) then
@@ -112,7 +112,7 @@ function open_namespace(name)
 	end
 end
 
-function create_namespace(name)
+function namespace_create(name)
 	assert(type(name) == 'string')
 	local namespace_index = fs.combine(HOME_DIR, name)
 	if fs.exists(namespace_index) then
@@ -125,7 +125,7 @@ function create_namespace(name)
 end
 
 function namespace_exists(name) -- __newindex is a thing
-	return (open_namespace(name) ~= ERRORS.NOT_EXISTS)
+	return (namespace_open(name) ~= ERRORS.NOT_EXISTS)
 end
 
 function new_node()

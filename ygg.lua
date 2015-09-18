@@ -36,7 +36,7 @@ else
 		error()
 	end
 
-	local ns = yggdrasil.open_namespace(namespace)
+	local ns = yggdrasil.namespace_open(namespace)
 
 	local address = redString.split(address, 99999999, '%.')
 
