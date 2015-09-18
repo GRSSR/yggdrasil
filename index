@@ -1,0 +1,19 @@
+{
+	dependancies = {
+		"api"
+	},
+	files = {
+		{
+			install_location = "/.sys/yggdrasil/yggdrasil",
+			repo_location = "yggdrasil.lua"
+		},
+		{
+			install_location = "/.sys/yggdrasil/ygg",
+			repo_location = "ygg.lua"
+		}
+	},
+	aliases = {
+		ygg = "/.sys/yggdrasil/ygg"
+	},
+	version = "1.0.0"
+}
