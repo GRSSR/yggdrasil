@@ -28,12 +28,10 @@ local function get_property(table, key)
 		table:load()
 	end
 	if table.key_table[key] then
-		if table.key_table[key].type == 'string' then
-			return table.key_table[key].value
-		elseif table.key_table[key].type == 'table' then
-			return textutils.unserialize(table.key_table[key].value)
-		elseif table.key_table[key].type == 'link' then
+		if table.key_table[key].type == 'link' then
 			return get_node(table.key_table[key].value)
+		else
+			return table.key_table[key].value
 		end
 	else
 		return ERRORS.NOT_EXISTS
@@ -50,22 +48,19 @@ local function set_property(tab, key, value)
 			value = node_id}
 		node:save()
 
-	elseif type(value) == 'table' then
-		rawget(tab, 'key_table')[key] = {
-			type = 'table',
-			value = textutils.serialize(value)}
 	else
 		rawget(tab, 'key_table')[key] = {
-			type = 'string',
+			type = type(value),
 			value = value}
 	end
 	tab.save(tab)
 end
 
 function Node:new(filename)
-	o = {}
-	o.key_table = {}
-	o.backing_storage = filename
+	o = {
+		key_table = {},
+		backing_storage = filename
+	}
 
 	for k, v in pairs(self) do
 		if type(v) == 'function' then
@@ -124,7 +119,7 @@ function namespace_create(name)
 	end
 end
 
-function namespace_exists(name) -- __newindex is a thing
+function namespace_exists(name)
 	return (namespace_open(name) ~= ERRORS.NOT_EXISTS)
 end
 
