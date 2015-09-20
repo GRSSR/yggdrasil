@@ -95,6 +95,10 @@ function Node:load()
 	file:close()
 end
 
+function Node:get_itterator() --spritz this up later, currently read only
+	return self.key_table
+end
+
 function namespace_open(name)
 	assert(type(name) == 'string')
 	local namespace_index = fs.combine(HOME_DIR, name)
